@@ -1,0 +1,29 @@
+
+#title-wrapper {
+    text-align: center;
+    padding: 1.5em 2em;
+}
+.title {
+    font-family: Helvetica;
+    margin-bottom: 30px;
+    margin: auto 0;
+}
+
+.submit-button {
+    margin: 2.7em auto;
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+    padding: 1em 3em;
+    font-size: 1.2em;
+}
+
+.entry-field {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+th {
+   padding-left: 20%;
+}
+
