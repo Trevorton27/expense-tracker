@@ -19,15 +19,11 @@
     <div id="title-wrapper">
         <h1 class="title">Ye Olde Expense Tracker</h1>
     </div>
+   
+    
 
-
-  <div class="container input-fields">
-    <div class="row justify-content-center">
-        <h4>Enter your information in the fields below.</h4>   
-    </div>
-    <div class="row justify-content-center">
-        <h4>Then click the great big blue button.</h4>
-    </div>
+  <div class="container input-fields" id="data-entry-fields">
+    
     
 
     <div class="row justify-content-center">
@@ -46,21 +42,25 @@
       </div>
       <div class="col entry-field">
         <h3>How much?</h3>   
-        <input type ="number" id= "how-much">
+        <span><input type ="number" id="howMuch"><select name="type" id="paymentType">
+          <option value="cash">USD</option>
+          <option value="card">JPY</option>
+          <option value="check">Jellybeans</option>
+          <option value="other">Interstellar Credits</option>
+      </select></span>
       </div>
     </div>
   </div>
-  <div class="row justify-content-center">   
-    <button type="button" class="btn submit-button" 
-    onclick="myFunction()">Add Expense</button>
-  </div>
  
-  <div class="row justify-content-center">
-    <h4></h4>
-</div>
+
+  <div class="row justify-content-center">   
+    <button type="button" class="btn submit-button" id="submitButton">Add Expense</button>
+  </div>
+
+ 
 <div class="container html-table">
   <div class="row justify-content-center">
-    <h4>And it will show up in this super sweet HTML table.</h4>
+    <h4>New items will show up in this super sweet HTML table.</h4>
 </div>
 <br>
   <table class="table table-striped">
@@ -70,22 +70,19 @@
         <th>Where</th>
         <th>When</th>
         <th>How Much</th>
+        <th>Payment Type</th>
       </tr>
     </thead>
     
 	    <tbody id = "main-table" >
 	      <tr>
-	        <td></td>
+	        <td id="td"></td>
 	      </tr>
 	   
 	    </tbody>
   </table>
 </div>
 
-  
-  
-  <h5 id = "total"></h5>
-  <h5 id = "remaining"></h5>
 </div>
 <script src="brainsOfTheOperation.js" charset="utf-8"></script>
 </body>

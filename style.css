@@ -8,9 +8,16 @@
     margin-bottom: 30px;
     margin: auto 0;
 }
-
+#data-entry-fields{
+    margin-bottom: 2.7em;
+}
+h4.step-three{
+    margin-top: 2.7em;
+}
 .submit-button {
     margin: 2.7em auto;
+    margin-top: .8em;
+
     background-color: #007bff;
     color: white;
     font-weight: 600;
@@ -24,16 +31,12 @@
 }
 
 .input-fields {
-    border-style: solid;
+    
     padding: 1.5em 1.5em;
-    border-width: 1px;
-    border-radius: 1em;
+   
 }
 
 .html-table {
-    border-style: solid;
     padding: 1.5em 1.5em;
-    border-width: 1px;
-    border-radius: 1em;
 }
 
