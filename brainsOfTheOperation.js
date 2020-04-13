@@ -1,47 +1,47 @@
-const what = document.getElementById("what").value;
-const where = document.getElementById("where").value;
-const when = document.getElementById("when").value;
-const howMuch = document.getElementById("howMuch").value;
-const paymentType = document.getElementById("paymentType");
-const submit = document.getElementById("submitButton").value;
-const newItem = {
-    id: Date.now(),
-    item: what,
-    time: when,
-    location: where,
-    amount: howMuch,
-    payment: paymentType
-};
 
-submitButton.addEventListener("click", createNewItem());
+let renderArea = document.getElementById("main-table");
 
-function createNewItem(event) {
-   
+document.getElementById("submitButton").addEventListener("click", createNewItem);
+
+
+function createNewItem(e) {
+    e.preventDefault();
     populateTable();
-    let cat = newItem;
-    console.log("cat is ",  cat);
+    document.getElementsByClassName("field").reset();
+ 
+    console.log("create new item done ran");
+    return;
 }
 
 function populateTable() {
+    let what = document.getElementById("what").value;
+    let where = document.getElementById("where").value;
+    let when = document.getElementById("when").value;
+    let howMuch = document.getElementById("howMuch").value;
+    let newItem = {
+        id: Date.now(),
+        item: what,
+        time: when,
+        location: where,
+        amount: howMuch
+    };
 
-    let renderArea = document.getElementById("main-table");
     renderArea.innerHTML = 
-    `${newItem.id}
-    <td>
+    `<td>
     ${newItem.item}
-    </td>
-    <td>
-    ${newItem.time}
     </td>
     <td>
     ${newItem.location}
     </td>
     <td>
-    ${newItem.amount}
+    ${newItem.time}
     </td>
     <td>
-    ${newItem.payment}
+    ＄${newItem.amount}
     </td>
       `
+      console.log("populateTable done ran");
+ 
+   
 }
 

@@ -23,38 +23,34 @@
     
 
   <div class="container input-fields" id="data-entry-fields">
-    
-    
 
     <div class="row justify-content-center">
       <div class="col entry-field">
+        <form>
         <h3>What? </h3>  
-        <input type ="text" id= "what">
+        <input class="field" type="text" id= "what">
       </div>
       <div class="col entry-field">
         <h3>Where?</h3> 
-        <input type ="text" id= "where">
+        <input class="field" type="text" id= "where">
       </div>
       <div class="w-100"></div>
       <div class="col entry-field">
         <h3>When?</h3>   
-        <input type ="date" id= "when"> 
+        <input class="field" type="date" id= "when"> 
       </div>
       <div class="col entry-field">
         <h3>How much?</h3>   
-        <span><input type ="number" id="howMuch"><select name="type" id="paymentType">
-          <option value="cash">USD</option>
-          <option value="card">JPY</option>
-          <option value="check">Jellybeans</option>
-          <option value="other">Interstellar Credits</option>
-      </select></span>
+        <input class="field" type="number" id="howMuch" min="0.01" step="0.01">
       </div>
+     </form>
     </div>
   </div>
+  
  
 
   <div class="row justify-content-center">   
-    <button type="button" class="btn submit-button" id="submitButton">Add Expense</button>
+    <button type="submit" class="btn submit-button" id="submitButton">Add Expense</button>
   </div>
 
  
@@ -70,7 +66,6 @@
         <th>Where</th>
         <th>When</th>
         <th>How Much</th>
-        <th>Payment Type</th>
       </tr>
     </thead>
     
