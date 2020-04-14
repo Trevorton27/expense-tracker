@@ -26,22 +26,17 @@ function populateTable() {
         amount: howMuch
     };
 
-    renderArea.innerHTML = 
-    `<td>
-    ${newItem.item}
-    </td>
-    <td>
-    ${newItem.location}
-    </td>
-    <td>
-    ${newItem.time}
-    </td>
-    <td>
-    ＄${newItem.amount}
-    </td>
-      `
+    let newTableRow =
+    `
+    <tr>
+    <td>${newItem.item}</td>
+    <td>${newItem.location}</td>
+    <td>${newItem.time}</td>
+    <td>${newItem.amount}</td>
+    </tr>`;
+      
       console.log("populateTable done ran");
  
-   
+    renderArea.innerHTML += newTableRow;
 }
 
