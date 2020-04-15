@@ -7,28 +7,28 @@ document.getElementById("submitButton").addEventListener("click", createNewItem)
 function createNewItem(e) {
     e.preventDefault();
     populateTable();
-    document.getElementsByClassName("field").reset();
+    
  
     console.log("create new item done ran");
     return;
 }
 
 function populateTable() {
-    let what = document.getElementById("what").value;
-    let where = document.getElementById("where").value;
-    let when = document.getElementById("when").value;
-    let howMuch = document.getElementById("howMuch").value;
+    let description = document.getElementById("what").value;
+    let location = document.getElementById("where").value;
+    let date = document.getElementById("when").value;
+    let amount = document.getElementById("howMuch").value;
     let newItem = {
         id: Date.now(),
-        item: what,
-        time: when,
-        location: where,
-        amount: howMuch
+        item: description,
+        time: date,
+        location: location,
+        amount: amount
     };
 
-    let newTableRow =
-    `
-    <tr>
+  
+   const newRowContent = 
+   `<tr> 
     <td>${newItem.item}</td>
     <td>${newItem.location}</td>
     <td>${newItem.time}</td>
@@ -36,7 +36,10 @@ function populateTable() {
     </tr>`;
       
       console.log("populateTable done ran");
- 
-    renderArea.innerHTML += newTableRow;
+      console.log("newRow = ", newRowContent );
+    
+    let newRow = document.createElement(`${newRowContent}`);
+
+    renderArea.innerHTML += newRow;
 }
 
