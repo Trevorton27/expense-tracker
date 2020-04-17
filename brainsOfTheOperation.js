@@ -3,13 +3,13 @@ let renderArea = document.getElementById("main-table");
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
-
 function createNewItem(e) {
     e.preventDefault();
     populateTable();
-    
- 
-    console.log("create new item done ran");
+    document.getElementById("what").value = "";
+    document.getElementById("where").value = "";
+    document.getElementById("when").value = "";
+    document.getElementById("howMuch").value = "";
     return;
 }
 
@@ -26,20 +26,27 @@ function populateTable() {
         amount: amount
     };
 
-  
-   const newRowContent = 
-   `<tr> 
-    <td>${newItem.item}</td>
-    <td>${newItem.location}</td>
-    <td>${newItem.time}</td>
-    <td>${newItem.amount}</td>
-    </tr>`;
-      
-      console.log("populateTable done ran");
-      console.log("newRow = ", newRowContent );
+    // creates new row to be injected into html table
+    const tableRow = document.createElement('tr');
+    renderArea.appendChild(tableRow);
+
+    // creates new table cells top to bottom = right to left in table
+    const tableCell1 = document.createElement('td');
+    tableRow.appendChild(tableCell1);
+    const tableCell2 = document.createElement('td');
+    tableRow.appendChild(tableCell2);
+    const tableCell3 = document.createElement('td');
+    tableRow.appendChild(tableCell3);
+    const tableCell4 = document.createElement('td');
+    tableRow.appendChild(tableCell4);
     
-   /* let newRow = document.body.createElement(`${newRowContent}`);*/
-    
-    renderArea.innerHTML += newRowContent;
+    // calls values of newItem object as text values for new table row
+    tableCell1.textContent = `${newItem.item}`;
+    tableCell2.textContent = `${newItem.location}`;
+    tableCell3.textContent = `${newItem.time}`;
+    tableCell4.textContent = `${newItem.amount}`;
+    console.log("New row id is ",newItem.id);
 }
+
+
 
