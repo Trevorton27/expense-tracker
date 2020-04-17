@@ -38,8 +38,8 @@ function populateTable() {
       console.log("populateTable done ran");
       console.log("newRow = ", newRowContent );
     
-    let newRow = document.createElement(`${newRowContent}`);
-
-    renderArea.innerHTML += newRow;
+   /* let newRow = document.body.createElement(`${newRowContent}`);*/
+    
+    renderArea.innerHTML += newRowContent;
 }
 
