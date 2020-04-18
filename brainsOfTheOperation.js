@@ -1,5 +1,5 @@
-
 let renderArea = document.getElementById("main-table");
+const totalDisplay = document.getElementById("total-display");
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
@@ -25,7 +25,8 @@ function populateTable() {
         location: location,
         amount: amount
     };
-
+    let totalValue = null;
+    
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     renderArea.appendChild(tableRow);
@@ -46,6 +47,11 @@ function populateTable() {
     tableCell3.textContent = `${newItem.time}`;
     tableCell4.textContent = `${newItem.amount}`;
     console.log("New row id is ",newItem.id);
+    
+    totalValue === null ? totalValue = newItem.amount : totalValue += newItem.amount;
+    totalDisplay.textContent = "$" + totalValue;
+    totalValue += totalDisplay.value + totalValue;
+    console.log("total value is ", totalValue.value);
 }
 
 
