@@ -25,7 +25,7 @@ function populateTable() {
         location: location,
         amount: parseFloat(amount)
     };
-    let totalValue = null;
+    let expenseAmount = null;
     
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
@@ -47,16 +47,11 @@ function populateTable() {
     tableCell3.textContent = `${newItem.time}`;
     tableCell4.textContent = `${newItem.amount}`;
     console.log("New row id is ",newItem.id);
-   
-    let value = newItem.amount;
 
-    let display = totalDisplay.textContent;
+    expenseAmount = newItem.amount;
     
-    display === "" ? display = value : display += value;
-   
-    console.log(" value is ", value);
-    return display;
+    expenseAmount !== null ? expenseAmount = newItem.amount : expenseAmount += newItem.amount;
+    totalDisplay.textContent = "$" + expenseAmount;
+    // totalValue += totalDisplay.value + totalValue;
+    console.log("expense amount is ", expenseAmount);
 }
-
-
-
