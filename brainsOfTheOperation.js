@@ -1,5 +1,8 @@
 let renderArea = document.getElementById("main-table");
 const totalDisplay = document.getElementById("total-display");
+let fired = false;
+let firstExpense = null;
+let secondExpense = null;
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
@@ -12,7 +15,24 @@ function createNewItem(e) {
     document.getElementById("howMuch").value = "";
     return;
 }
+function getFirstExpense(expenseAmount) {
+    firstExpense === null ? firstExpense = expenseAmount : firstExpense += expenseAmount;
+    fired = true;
+}
 
+function getSecondExpense(expenseAmount) {
+   secondExpense === null ? secondExpense = expenseAmount : secondExpense += expenseAmount;
+    fired = false;
+}
+
+function totalExpenses( firstExpense, secondExpense) {
+    let exp1 = parseFloat(firstExpense);
+    let exp2 = parseFloat(secondExpense);
+
+    expenseAmount = (exp1 + exp2 );
+    return expenseAmount;
+
+}
 function populateTable() {
     let description = document.getElementById("what").value;
     let location = document.getElementById("where").value;
@@ -26,6 +46,7 @@ function populateTable() {
         amount: parseFloat(amount)
     };
     let expenseAmount = null;
+    
     
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
@@ -48,10 +69,21 @@ function populateTable() {
     tableCell4.textContent = `${newItem.amount}`;
     console.log("New row id is ",newItem.id);
 
-    expenseAmount = newItem.amount;
+    expenseAmount = newItem.amount;// 
+
+    if(fired) {
+        getSecondExpense(expenseAmount);
+        
+    } else {
+        getFirstExpense(expenseAmount);
+        
+    }
     
-    expenseAmount !== null ? expenseAmount = newItem.amount : expenseAmount += newItem.amount;
-    totalDisplay.textContent = "$" + expenseAmount;
+    totalExpenses(firstExpense, secondExpense);
+    firstExpense && secondExpense !== null ? expenseAmount = (firstExpense + secondExpense) : expenseAmount = firstExpense;
+    totalDisplay.textContent  = "$" + expenseAmount;
+    firstExpense = expenseAmount;
+    secondExpense = null;
     // totalValue += totalDisplay.value + totalValue;
     console.log("expense amount is ", expenseAmount);
 }
