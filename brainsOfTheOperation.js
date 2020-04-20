@@ -23,7 +23,7 @@ function populateTable() {
         item: description,
         time: date,
         location: location,
-        amount: amount
+        amount: parseFloat(amount)
     };
     let totalValue = null;
     
@@ -47,11 +47,15 @@ function populateTable() {
     tableCell3.textContent = `${newItem.time}`;
     tableCell4.textContent = `${newItem.amount}`;
     console.log("New row id is ",newItem.id);
+   
+    let value = newItem.amount;
+
+    let display = totalDisplay.textContent;
     
-    totalValue === null ? totalValue = newItem.amount : totalValue += newItem.amount;
-    totalDisplay.textContent = "$" + totalValue;
-    totalValue += totalDisplay.value + totalValue;
-    console.log("total value is ", totalValue.value);
+    display === "" ? display = value : display += value;
+   
+    console.log(" value is ", value);
+    return display;
 }
 
 
