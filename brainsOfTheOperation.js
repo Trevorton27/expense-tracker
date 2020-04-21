@@ -37,12 +37,12 @@ function totalExpenses( firstExpense, secondExpense) {
 
 }
 
-function removeRow(element) {
-    element = document.querySelector('tr');
-    element.parentNode.removeChild(element);
-}
+
 function activateDelete() {
-    document.getElementById('delete-button').addEventListener('click', console.log('delete button was clicked'));
+    document.getElementById('delete-button').addEventListener('click', buttonFired);
+}
+function buttonFired() {
+    console.log('delete button was clicked')
 }
 function populateTable() {
     let description = document.getElementById("what").value;
