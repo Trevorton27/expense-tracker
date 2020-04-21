@@ -26,10 +26,10 @@ function getSecondExpense(expenseAmount) {
 }
 
 function totalExpenses( firstExpense, secondExpense) {
-    let exp1 = parseFloat(firstExpense);
-    let exp2 = parseFloat(secondExpense);
+    let expense1 = parseFloat(firstExpense);
+    let expense2 = parseFloat(secondExpense);
 
-    expenseAmount = (exp1 + exp2 );
+    expenseAmount = (expense1 + expense2 );
     return expenseAmount;
 
 }
@@ -45,13 +45,14 @@ function populateTable() {
         location: location,
         amount: parseFloat(amount)
     };
+
     let expenseAmount = null;
-    
     
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     renderArea.appendChild(tableRow);
-
+    const deleteButton = document.createElement('BUTTON');
+    const deleteButtonText = document.createTextNode('Delete');
     // creates new table cells top to bottom = right to left in table
     const tableCell1 = document.createElement('td');
     tableRow.appendChild(tableCell1);
@@ -61,6 +62,9 @@ function populateTable() {
     tableRow.appendChild(tableCell3);
     const tableCell4 = document.createElement('td');
     tableRow.appendChild(tableCell4);
+    tableRow.appendChild(deleteButton);
+    deleteButton.appendChild(deleteButtonText);
+    deleteButton.classList.add('delete-button');
     
     // calls values of newItem object as text values for new table row
     tableCell1.textContent = `${newItem.item}`;
@@ -84,6 +88,5 @@ function populateTable() {
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
-    // totalValue += totalDisplay.value + totalValue;
     console.log("expense amount is ", expenseAmount);
 }
