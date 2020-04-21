@@ -6,14 +6,17 @@ let secondExpense = null;
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
+
 function createNewItem(e) {
     e.preventDefault();
     populateTable();
+   
+
     document.getElementById("what").value = "";
     document.getElementById("where").value = "";
     document.getElementById("when").value = "";
     document.getElementById("howMuch").value = "";
-    return;
+    activateDelete();
 }
 function getFirstExpense(expenseAmount) {
     firstExpense === null ? firstExpense = expenseAmount : firstExpense += expenseAmount;
@@ -32,6 +35,14 @@ function totalExpenses( firstExpense, secondExpense) {
     expenseAmount = (expense1 + expense2 );
     return expenseAmount;
 
+}
+
+function removeRow(element) {
+    element = document.querySelector('tr');
+    element.parentNode.removeChild(element);
+}
+function activateDelete() {
+    document.getElementById('delete-button').addEventListener('click', console.log('delete button was clicked'));
 }
 function populateTable() {
     let description = document.getElementById("what").value;
@@ -52,7 +63,7 @@ function populateTable() {
     const tableRow = document.createElement('tr');
     renderArea.appendChild(tableRow);
     const deleteButton = document.createElement('BUTTON');
-    const deleteButtonText = document.createTextNode('Delete');
+    const deleteButtonText = document.createTextNode('X');
     // creates new table cells top to bottom = right to left in table
     const tableCell1 = document.createElement('td');
     tableRow.appendChild(tableCell1);
@@ -64,7 +75,9 @@ function populateTable() {
     tableRow.appendChild(tableCell4);
     tableRow.appendChild(deleteButton);
     deleteButton.appendChild(deleteButtonText);
-    deleteButton.classList.add('delete-button');
+    deleteButton.setAttribute('id', 'delete-button');
+    
+    
     
     // calls values of newItem object as text values for new table row
     tableCell1.textContent = `${newItem.item}`;
@@ -73,6 +86,7 @@ function populateTable() {
     tableCell4.textContent = `${newItem.amount}`;
     console.log("New row id is ",newItem.id);
 
+    
     expenseAmount = newItem.amount;// 
 
     if(fired) {
