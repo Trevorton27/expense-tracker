@@ -4,6 +4,22 @@ let fired = false;
 let firstExpense = null;
 let secondExpense = null;
 let rendered = null;
+const tableValues = [];
+
+let description = document.getElementById("what").value;
+let place = document.getElementById("where").value;
+let date = document.getElementById("when").value;
+let amount = document.getElementById("howMuch").value;
+let newItem = {
+    id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
+    item: description,
+    time: date,
+    place: place,
+    total: amount
+};
+
+let expense = newItem.total;
+let expenseAmount = parseFloat(expense);
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
@@ -56,22 +72,8 @@ function deleteRow() {
 }
 
 function populateTable() {
-    const tableValues = [];
-
-    let description = document.getElementById("what").value;
-    let location = document.getElementById("where").value;
-    let date = document.getElementById("when").value;
-    let amount = document.getElementById("howMuch").value;
-    let newItem = {
-        id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
-        item: description,
-        time: date,
-        location: location,
-        amount: parseFloat(amount)
-    };
-
-    let expenseAmount = null;
-    
+  
+    //expenseAmount = newItem.total;//
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     renderArea.appendChild(tableRow);
@@ -95,13 +97,13 @@ function populateTable() {
     
     // calls values of newItem object as text values for new table row
     tableCell1.textContent = `${newItem.item}`;
-    tableCell2.textContent = `${newItem.location}`;
+    tableCell2.textContent = `${newItem.place}`;
     tableCell3.textContent = `${newItem.time}`;
-    tableCell4.textContent = `${newItem.amount}`;
+    tableCell4.textContent = `${newItem.total}`;
     console.log("New row id is ",newItem.id);
 
     
-    expenseAmount = newItem.amount;// 
+     
 
     if(fired) {
         getSecondExpense(expenseAmount);
