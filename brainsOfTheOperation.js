@@ -3,6 +3,7 @@ const totalDisplay = document.getElementById("total-display");
 let fired = false;
 let firstExpense = null;
 let secondExpense = null;
+let rendered = null;
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
@@ -37,20 +38,32 @@ function totalExpenses( firstExpense, secondExpense) {
 
 }
 
+function subtractExpense() {
+    //select for tableRow by id here, subtract purchase amount from total in display box and delete row on click
+    return console.log('subtractExpense fired');
+}
+
 
 function activateDelete() {
-    document.getElementById('delete-button').addEventListener('click', buttonFired);
+    document.getElementById('delete-button').addEventListener('click', deleteRow);
 }
-function buttonFired() {
-    console.log('delete button was clicked')
+function deleteRow() {
+    console.log("deleteRow fired");
+    let row = document.getElementById('table-row');
+    row.parentNode.removeChild(row);
+    
+
 }
+
 function populateTable() {
+    const tableValues = [];
+
     let description = document.getElementById("what").value;
     let location = document.getElementById("where").value;
     let date = document.getElementById("when").value;
     let amount = document.getElementById("howMuch").value;
     let newItem = {
-        id: Date.now(),
+        id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
         item: description,
         time: date,
         location: location,
@@ -76,6 +89,7 @@ function populateTable() {
     tableRow.appendChild(deleteButton);
     deleteButton.appendChild(deleteButtonText);
     deleteButton.setAttribute('id', 'delete-button');
+    tableRow.setAttribute('id', 'table-row');
     
     
     
@@ -102,5 +116,6 @@ function populateTable() {
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
+    rendered = true;
     console.log("expense amount is ", expenseAmount);
 }
