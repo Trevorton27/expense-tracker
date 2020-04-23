@@ -3,7 +3,7 @@ const totalDisplay = document.getElementById("total-display");
 let fired = false;
 let firstExpense = null;
 let secondExpense = null;
-let rendered = null;
+let expenseAmount = null;
 const tableValues = [];
 
 let description = document.getElementById("what").value;
@@ -15,11 +15,11 @@ let newItem = {
     item: description,
     time: date,
     place: place,
-    total: amount
+    total: parseFloat(amount)
 };
 
-let expense = newItem.total;
-let expenseAmount = parseFloat(expense);
+
+expenseAmount = newItem.total;
 
 document.getElementById("submitButton").addEventListener("click", createNewItem);
 
@@ -103,7 +103,7 @@ function populateTable() {
     console.log("New row id is ",newItem.id);
 
     
-     
+ 
 
     if(fired) {
         getSecondExpense(expenseAmount);
@@ -118,6 +118,5 @@ function populateTable() {
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
-    rendered = true;
     console.log("expense amount is ", expenseAmount);
 }
