@@ -4,7 +4,7 @@ let fired = false;
 let firstExpense = null;
 let secondExpense = null;
 let expenseAmount = null;
-const tableValues = [];
+const tableValues = JSON.parse(localStorage.getItem('tableValues')) || [];
 let description = document.getElementById("what");
 let place = document.getElementById("where");
 let date = document.getElementById("when");
@@ -38,6 +38,7 @@ function createNewItem(e) {
     document.getElementById("howMuch").value = "";
  
     tableValues.push(newItem);
+    localStorage.setItem('tableValues', JSON.stringify(tableValues));
     console.log("tableValues ", tableValues);
 }
 function getFirstExpense(expenseAmount) {
@@ -67,33 +68,41 @@ function subtractExpense() {
 
 function populateTable(newItem) {
     tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
-    // creates new row to be injected into html table
-    const tableRow = document.createElement('tr');
-    tableRow.setAttribute('id', tableId);
-    renderArea.appendChild(tableRow);
-    const deleteButton = document.createElement('BUTTON');
-    const deleteButtonText = document.createTextNode('X');
-    // creates new table cells top to bottom = right to left in table
-    const tableCell1 = document.createElement('td');
-    tableRow.appendChild(tableCell1);
-    const tableCell2 = document.createElement('td');
-    tableRow.appendChild(tableCell2);
-    const tableCell3 = document.createElement('td');
-    tableRow.appendChild(tableCell3);
-    const tableCell4 = document.createElement('td');
-    tableRow.appendChild(tableCell4);
-    tableRow.appendChild(deleteButton);
-    deleteButton.appendChild(deleteButtonText);
-    deleteButton.setAttribute('id', 'delete-button');
+    for(let i = 0; i < tableValues.length; i++) {
+        let id = tableValues[i].id;
+        if(id == tableId) {
+              // creates new row to be injected into html table
+        const tableRow = document.createElement('tr');
+        tableRow.setAttribute('id', tableId);
+        renderArea.appendChild(tableRow);
+        const deleteButton = document.createElement('BUTTON');
+        const deleteButtonText = document.createTextNode('X');
+        // creates new table cells top to bottom = right to left in table
+        const tableCell1 = document.createElement('td');
+        tableRow.appendChild(tableCell1);
+        const tableCell2 = document.createElement('td');
+        tableRow.appendChild(tableCell2);
+        const tableCell3 = document.createElement('td');
+        tableRow.appendChild(tableCell3);
+        const tableCell4 = document.createElement('td');
+        tableRow.appendChild(tableCell4);
+        tableRow.appendChild(deleteButton);
+        deleteButton.appendChild(deleteButtonText);
+        deleteButton.setAttribute('id', 'delete-button');
+
+        let item = newItem.item;
+        // calls values of newItem object as text values for new table row
+        tableCell1.textContent = `${item}`;
+        tableCell1.setAttribute('id', `${newItem.id}`);
+        tableCell2.textContent = `${newItem.place}`;
+        tableCell3.textContent = `${newItem.time}`;
+        tableCell4.textContent = `${newItem.total}`;
+        console.log("tableId is ", tableId); 
+        }
+    }
+
     
-    let item = newItem.item;
-    // calls values of newItem object as text values for new table row
-    tableCell1.textContent = `${item}`;
-    tableCell1.setAttribute('id', `${newItem.id}`);
-    tableCell2.textContent = `${newItem.place}`;
-    tableCell3.textContent = `${newItem.time}`;
-    tableCell4.textContent = `${newItem.total}`;
-    console.log("tableId is ", tableId); 
+
 
     if(fired) {
         getSecondExpense(expenseAmount);
@@ -107,14 +116,19 @@ function deleteRow(tableId) {
     document
     .getElementById('delete-button')
     .addEventListener('click', function() {  
-        console.log("tableValues = ", tableValues);
+        
         for(let i = 0; i < tableValues.length; i++) {
             if(tableValues[i].id == tableId) {
                 tableValues.splice(i, 1);
+                let row = document.getElementById(tableId);
+                row.parentNode.removeChild(row);
             }
         }
+     
         console.log("deleteRow fired");
         console.log("tableId after firing is ", tableId);
+        console.log("tableValues = ", tableValues);
+        console.log("expenseAmount is", expenseAmount);
     }); 
 }
     
@@ -123,7 +137,7 @@ function deleteRow(tableId) {
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
-    deleteRow();
+    deleteRow(tableId);
 };
 
 
