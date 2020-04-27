@@ -4,13 +4,13 @@ let fired = false;
 let firstExpense = null;
 let secondExpense = null;
 let expenseAmount = null;
-const tableValues = JSON.parse(localStorage.getItem('tableValues')) || [];
+ const tableValues = [];
 let description = document.getElementById("what");
 let place = document.getElementById("where");
 let date = document.getElementById("when");
 let amount = document.getElementById("howMuch");
 let tableId = null;
-
+// JSON.parse(localStorage.getItem('tableValues')) || []
 
 
 
@@ -36,7 +36,8 @@ function createNewItem(e) {
     document.getElementById("where").value = "";
     document.getElementById("when").value = "";
     document.getElementById("howMuch").value = "";
- 
+    
+
     tableValues.push(newItem);
     localStorage.setItem('tableValues', JSON.stringify(tableValues));
     console.log("tableValues ", tableValues);
@@ -68,9 +69,9 @@ function subtractExpense() {
 
 function populateTable(newItem) {
     tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
-    for(let i = 0; i < tableValues.length; i++) {
-        let id = tableValues[i].id;
-        if(id == tableId) {
+    // for(let i = 0; i < tableValues.length; i++) {
+    //     let id = tableValues[i].id;
+    //     if(id == tableId) {
               // creates new row to be injected into html table
         const tableRow = document.createElement('tr');
         tableRow.setAttribute('id', tableId);
@@ -89,6 +90,29 @@ function populateTable(newItem) {
         tableRow.appendChild(deleteButton);
         deleteButton.appendChild(deleteButtonText);
         deleteButton.setAttribute('id', 'delete-button');
+        deleteButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            for(let i = 0; i < tableValues.length; i++) {
+                if(tableValues[i].id == tableId) {
+                    console.log('selected amount was ', tableValues[i].total);
+                    tableValues.splice(i, 1);
+                    localStorage.setItem('tableValues', JSON.stringify(tableValues));
+                     let row = document.getElementById(tableId);
+                     row.parentNode.removeChild(row);
+                     tableId = tableId -1;
+                     let newTotal = (expenseAmount - tableValues[i].total);
+                     expenseAmount = newTotal;
+                     return expenseAmount;
+                     
+                }
+            }
+         
+            console.log("deleteRow fired");
+            console.log("tableId after firing is ", tableId);
+            console.log("tableValues = ", tableValues);
+            console.log("expenseAmount is", expenseAmount);
+        });
 
         let item = newItem.item;
         // calls values of newItem object as text values for new table row
@@ -98,8 +122,8 @@ function populateTable(newItem) {
         tableCell3.textContent = `${newItem.time}`;
         tableCell4.textContent = `${newItem.total}`;
         console.log("tableId is ", tableId); 
-        }
-    }
+        
+    
 
     
 
@@ -111,33 +135,12 @@ function populateTable(newItem) {
         getFirstExpense(expenseAmount);
         
     }
-
-function deleteRow(tableId) {
-    document
-    .getElementById('delete-button')
-    .addEventListener('click', function() {  
-        
-        for(let i = 0; i < tableValues.length; i++) {
-            if(tableValues[i].id == tableId) {
-                tableValues.splice(i, 1);
-                let row = document.getElementById(tableId);
-                row.parentNode.removeChild(row);
-            }
-        }
-     
-        console.log("deleteRow fired");
-        console.log("tableId after firing is ", tableId);
-        console.log("tableValues = ", tableValues);
-        console.log("expenseAmount is", expenseAmount);
-    }); 
-}
     
     totalExpenses(firstExpense, secondExpense);
     firstExpense && secondExpense !== null ? expenseAmount = (firstExpense + secondExpense) : expenseAmount = firstExpense;
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
-    deleteRow(tableId);
 };
 
 
