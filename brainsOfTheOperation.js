@@ -101,8 +101,8 @@ function populateTable(newItem) {
                      let row = document.getElementById(tableId);
                      row.parentNode.removeChild(row);
                      tableId = tableId -1;
-                     let newTotal = (expenseAmount - tableValues[i].total);
-                     expenseAmount = newTotal;
+                     expenseAmount = (expenseAmount - tableValues[i].total);
+                     
                      return expenseAmount;
                      
                 }
