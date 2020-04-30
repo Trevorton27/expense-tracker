@@ -95,15 +95,17 @@ function populateTable(newItem) {
 
             for(let i = 0; i < tableValues.length; i++) {
                 if(tableValues[i].id == tableId) {
-                    console.log('selected amount was ', tableValues[i].total);
+                    
                     tableValues.splice(i, 1);
-                    localStorage.setItem('tableValues', JSON.stringify(tableValues));
+                    // localStorage.setItem('tableValues', JSON.stringify(tableValues));
+                    let total = newItem.total;
+                    console.log('selected amount was ', total);
                      let row = document.getElementById(tableId);
                      row.parentNode.removeChild(row);
                      tableId = tableId -1;
-                     expenseAmount = (expenseAmount - tableValues[i].total);
-                     
-                     return expenseAmount;
+                     expenseAmount = (expenseAmount - total);
+                     localStorage.setItem('tableValues', JSON.stringify(tableValues));
+                     totalDisplay.textContent  = "$" + expenseAmount;
                      
                 }
             }
