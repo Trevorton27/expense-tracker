@@ -19,7 +19,6 @@ document
 
 function createNewItem(e) {
     e.preventDefault();
-
     let newItem = {
         id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
         item: description.value,
@@ -68,6 +67,7 @@ function subtractExpense() {
 
 
 function populateTable(newItem) {
+ 
     tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
    
               // creates new row to be injected into html table
@@ -88,7 +88,34 @@ function populateTable(newItem) {
         tableRow.appendChild(deleteButton);
         deleteButton.appendChild(deleteButtonText);
         deleteButton.setAttribute('class', 'delete-button');
-        deleteButton.addEventListener('click', deleteRow);
+        deleteButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            // console.log(e.target.parentNode.id);
+            let rowId = e.target.parentNode.id;
+           
+            for(let i = 0; i < tableValues.length; i++) {
+                // console.log('tableValues.id is ', tableValues[i].id, 'rowId is ', rowId);
+                if(tableValues[i].id === Number(rowId)) {
+                    
+                    console.log('tableValues id is ', tableValues[i].id);
+                  
+                     tableValues.splice(i, 1);
+                     targetRow = document.getElementById(rowId);
+                    targetRow.parentNode.removeChild(targetRow);
+                    let total = newItem.total;
+                    console.log('selected amount was ', total);
+                
+                     expenseAmount = (expenseAmount - total);
+                     localStorage.setItem('tableValues', JSON.stringify(tableValues));
+                     totalDisplay.textContent  = "$" + expenseAmount;
+                     firstExpense = null;
+                } 
+            }
+            
+            console.log("deleteRow fired and expenseAmount is ", expenseAmount);
+            // console.log("tableValues = ", tableValues);
+            // console.log("expenseAmount is", expenseAmount);
+        });
 
         let item = newItem.item;
         // calls values of newItem object as text values for new table row
@@ -98,6 +125,8 @@ function populateTable(newItem) {
         tableCell3.textContent = `${newItem.time}`;
         tableCell4.textContent = `${newItem.total}`;
         // console.log("tableId is ", tableId); 
+
+        console.log('expenseAmount is currently', expenseAmount);
         
     
 
@@ -109,7 +138,6 @@ function populateTable(newItem) {
         
     } else {
         getFirstExpense(expenseAmount);
-        
     }
     
     totalExpenses(firstExpense, secondExpense);
@@ -119,32 +147,5 @@ function populateTable(newItem) {
     secondExpense = null;
 };
 
-function deleteRow(e) {
-    e.preventDefault();
-    // console.log(e.target.parentNode.id);
-    let rowId = e.target.parentNode.id;
-   
-    for(let i = 0; i < tableValues.length; i++) {
-        // console.log('tableValues.id is ', tableValues[i].id, 'rowId is ', rowId);
-        if(tableValues[i].id === Number(rowId)) {
-            
-            console.log('tableValues id is ', tableValues[i].id);
-          
-             tableValues.splice(i, 1);
-             targetRow = document.getElementById(rowId);
-            targetRow.parentNode.removeChild(targetRow);
-            // let total = newItem.total;
-            // console.log('selected amount was ', total);
-            //  let row = document.getElementById(tableId);
-            //  row.parentNode.removeChild(row);
-            //  expenseAmount = (expenseAmount - total);
-            //  localStorage.setItem('tableValues', JSON.stringify(tableValues));
-            //  totalDisplay.textContent  = "$" + expenseAmount;
-        } 
-    }
- 
-    console.log("deleteRow fired");
-    // console.log("tableValues = ", tableValues);
-    // console.log("expenseAmount is", expenseAmount);
-};
+
 
