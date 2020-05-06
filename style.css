@@ -48,7 +48,7 @@ h4.step-three{
     min-height: 30px;
 }
 
-#delete-button {
+.delete-button {
     color: #ffffff;
     background-color: #df392e;
     margin: 0.2em 2em;
