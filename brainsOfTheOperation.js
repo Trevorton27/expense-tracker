@@ -4,18 +4,26 @@ let fired = false;
 let firstExpense = null;
 let secondExpense = null;
 let expenseAmount = null;
- const tableValues = [];
+const tableValues = JSON.parse(localStorage.getItem('tableValues')) || [];
 let description = document.getElementById("what");
 let place = document.getElementById("where");
 let date = document.getElementById("when");
 let amount = document.getElementById("howMuch");
-// JSON.parse(localStorage.getItem('tableValues')) || []
-
-
 
 document
     .getElementById("submitButton")
     .addEventListener("click", createNewItem);
+    //1. create an item object
+    //2. store to local array
+    //3. store array to local storage
+    //4. render table
+    // function totalExpenses() {
+    //     let sum = 0;
+    //     tableValues.forEach((item) => {
+    //         sum += item.total
+    //     })
+    //     return sum;
+    // }
 
 function createNewItem(e) {
     e.preventDefault();
@@ -26,6 +34,7 @@ function createNewItem(e) {
         place: place.value,
         total: amount.value
     };
+
     expenseAmount = parseFloat(newItem.total);
     
     populateTable(newItem);
@@ -35,8 +44,6 @@ function createNewItem(e) {
     document.getElementById("when").value = "";
     document.getElementById("howMuch").value = "";
     document.getElementById("what").focus();
-    
-
     tableValues.push(newItem);
     localStorage.setItem('tableValues', JSON.stringify(tableValues));
     // console.log("tableValues ", tableValues);
@@ -52,19 +59,14 @@ function getSecondExpense(expenseAmount) {
 }
 
 function totalExpenses( firstExpense, secondExpense) {
-    let expense1 = parseFloat(firstExpense);
-    let expense2 = parseFloat(secondExpense);
+  return parseFloat(firstExpense) + parseFloat(secondExpense);
 
-    expenseAmount = (expense1 + expense2 );
-    return expenseAmount;
 }
 
 function subtractExpense() {
     //select for tableRow by id here, subtract purchase amount from total in display box and delete row on click
     return console.log('subtractExpense fired');
 }
-
-
 
 function populateTable(newItem) {
  
@@ -111,28 +113,17 @@ function populateTable(newItem) {
                      firstExpense = null;
                 } 
             }
-            
-            console.log("deleteRow fired and expenseAmount is ", expenseAmount);
-            // console.log("tableValues = ", tableValues);
-            // console.log("expenseAmount is", expenseAmount);
+        
         });
 
-        let item = newItem.item;
         // calls values of newItem object as text values for new table row
-        tableCell1.textContent = `${item}`;
+        tableCell1.textContent = `${newItem.item}`;
         // tableCell1.setAttribute('id', `${newItem.id}`);
         tableCell2.textContent = `${newItem.place}`;
         tableCell3.textContent = `${newItem.time}`;
         tableCell4.textContent = `${newItem.total}`;
-        // console.log("tableId is ", tableId); 
-
         console.log('expenseAmount is currently', expenseAmount);
         
-    
-
-    
-
-
     if(fired) {
         getSecondExpense(expenseAmount);
         
@@ -141,7 +132,7 @@ function populateTable(newItem) {
     }
     
     totalExpenses(firstExpense, secondExpense);
-    firstExpense && secondExpense !== null ? expenseAmount = (firstExpense + secondExpense) : expenseAmount = firstExpense;
+    firstExpense !== null && secondExpense !== null ? expenseAmount = (firstExpense + secondExpense) : expenseAmount = firstExpense;
     totalDisplay.textContent  = "$" + expenseAmount;
     firstExpense = expenseAmount;
     secondExpense = null;
