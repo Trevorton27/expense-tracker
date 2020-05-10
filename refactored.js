@@ -1,13 +1,13 @@
 let renderArea = document.getElementById("main-table");
 const totalDisplay = document.getElementById("total-display");
 const tableValues = [];
-let description = document.getElementById("what");
-let place = document.getElementById("where");
-let date = document.getElementById("when");
-let amount = document.getElementById("howMuch");
+const description = document.getElementById("what");
+const place = document.getElementById("where");
+const date = document.getElementById("when");
+const amount = document.getElementById("howMuch");
 
 //1. create an item object
-let newItem = {
+const newItem = {
     id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
     item: description.value,
     time: date.value,
@@ -29,7 +29,7 @@ function pushToLocalStorage() {
    // 4. render table
 function renderTableRow(newItem) {
 
-    tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
+    tableId = tableValues.length > 0 ? tableValues.length : 1;
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', tableId);
@@ -50,12 +50,12 @@ function renderTableRow(newItem) {
     deleteButton.setAttribute('class', 'delete-button');
     deleteButton.addEventListener('click', deleteRow);
 
-    tableCell1.textContent = `${newItem.item}`;
-    tableCell2.textContent = `${newItem.place}`;
-    tableCell3.textContent = `${newItem.time}`;
-    tableCell4.textContent = `${newItem.total}`;
+    tableCell1.textContent = description.value;
+    tableCell2.textContent =  date.value;
+    tableCell3.textContent =  place.value;
+    tableCell4.textContent = amount.value;
     console.log('new item is ', newItem);
-    console.log('new item total is ', newItem.total.value);
+    console.log('new item total is ', amount.value);
 
     document.getElementById("what").value = "";
     document.getElementById("where").value = "";
@@ -72,12 +72,16 @@ function renderTableRow(newItem) {
 };
 // 5. adjust total expense display
 function totalExpenses(tableValues) {
-        let sum = 0;
-        tableValues.forEach((item) => {
-            sum += item.total
-        })
-        console.log('sum = ', sum);
-        totalDisplay.textContent  = "$" + sum;
+    let sum = 0;
+    let currentSum = tableValues.reduce(function (total, currentValue) {
+        return total + currentValue;
+    }, sum);
+    console.log('current sum is ', currentSum);
+        // tableValues.forEach((item) => {
+        //     sum += item.total
+        // })
+        // console.log('sum = ', sum);
+        // totalDisplay.textContent  = "$" + sum;
 };
 // 6. Delete Table Row
 function deleteRow(e) {
