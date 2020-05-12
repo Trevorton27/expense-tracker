@@ -6,7 +6,7 @@ const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
 
-
+window.localStorage.removeItem('tableValues');
 
 //1. create an item object
 
@@ -24,6 +24,8 @@ function pushToLocalStorage() {
 };
    // 4. render table
 function renderTableRow() {
+    
+    JSON.parse(localStorage.getItem('tableValues'));
     const newItem = {
         id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
         item: description.value,
