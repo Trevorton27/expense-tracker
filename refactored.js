@@ -5,14 +5,37 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
+// const storedItems = tableValues.forEach(
+//    console.log({item, time, location, total}));
 
-window.localStorage.removeItem('tableValues');
 
+// window.addEventListener('load', (e) => {
+//     e.preventDefault();
+//     return storedItems;
+// })
 //1. create an item object
 
 document
     .getElementById("submitButton")
-    .addEventListener("click", renderTableRow);
+    .addEventListener("click", () => {
+
+        const newItem = {
+            id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
+            item: description.value,
+            time: date.value,
+            location: place.value,
+            total: amount.value
+        };
+        
+        renderTableRow(newItem);
+        pushToArray(newItem);
+        console.log('tablevalues array ', tableValues);
+        pushToLocalStorage(newItem);
+        totalExpenses(tableValues);
+        clearInputs();
+        focusOnWhatField();
+    });
+
     //2. store to local array
 function pushToArray(newItem) {
     tableValues.push(newItem);
@@ -25,15 +48,6 @@ function pushToLocalStorage() {
    // 4. render table
 function renderTableRow() {
     
-    JSON.parse(localStorage.getItem('tableValues'));
-    const newItem = {
-        id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
-        item: description.value,
-        time: date.value,
-        place: place.value,
-        total: amount.value
-    };
-
     tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
@@ -57,23 +71,8 @@ function renderTableRow() {
 
     tableCell1.textContent =  description.value;
     tableCell2.textContent =  date.value;
-    tableCell3.textContent =  place.value;
-    tableCell4.textContent =  amount.value;
-    console.log('new item is ', newItem);
-    console.log('new item total is ', amount.value);
-
-    document.getElementById("what").value = "";
-    document.getElementById("where").value = "";
-    document.getElementById("when").value = "";
-    document.getElementById("howMuch").value = "";
-    document.getElementById("what").focus();
-
-    pushToArray(newItem);
-    console.log('tablevalues array ', tableValues);
-
-    pushToLocalStorage();
-
-    totalExpenses(tableValues);
+    tableCell3.textContent =  location.value;
+    tableCell4.textContent =  amount.value;   
 };
 // 5. adjust total expense display
 function totalExpenses(tableValues) {
@@ -86,8 +85,6 @@ function totalExpenses(tableValues) {
            sum += parseFloat(total);
            totalDisplay.textContent  = "$" + sum;
         });
-        
-        
 };
 // 6. Delete Table Row
 function deleteRow(e) {
@@ -103,8 +100,18 @@ function deleteRow(e) {
             totalExpenses(tableValues);
             if(tableValues.length === 0)  totalDisplay.textContent = "$" + 0;
         } 
-       
     }
-    
-
 };
+
+function clearInputs() {
+    document.getElementById("what").value = "";
+    document.getElementById("where").value = "";
+    document.getElementById("when").value = "";
+    document.getElementById("howMuch").value = "";
+};
+
+function focusOnWhatField() {
+    document.getElementById("what").focus();
+};
+
+renderTableRow(tableValues);
