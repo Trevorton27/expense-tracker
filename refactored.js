@@ -5,14 +5,14 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
-// const storedItems = tableValues.forEach(
-//    console.log({item, time, location, total}));
+const storedItems = tableValues.forEach(
+   console.log({item, time, location, total}));
 
 
-// window.addEventListener('load', (e) => {
-//     e.preventDefault();
-//     return storedItems;
-// })
+window.addEventListener('load', (e) => {
+    e.preventDefault();
+    return storedItems;
+})
 //1. create an item object
 
 document
