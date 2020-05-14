@@ -5,20 +5,25 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
-const storedItems = tableValues.forEach(() => {
-    return {id, item, time, location, total };
-}
-    
-);
+
 
 window.addEventListener('load', (e) => {
     e.preventDefault();
-    renderOnLoad();
+    renderOnLoad(tableValues);
 })
-function renderOnLoad() {
-    renderTableRow(storedItems);
-    console.log('storedItems looks like this ', storedItems);
-};
+function renderOnLoad(tableValues) {
+    
+        tableValues.forEach(({item, time, location, total}) => {
+          const storedItems = {item, time, location, total};
+            // renderTableRow(storedItems);
+            console.log( 'stored items dawg ', storedItems);
+            renderTableRow(storedItems);
+        });
+    };
+  
+
+ 
+
 //1. create an item object
 
 document
@@ -42,8 +47,7 @@ document
         focusOnWhatField();
     });
 
-renderTableRow(storedItems);
-console.log(storedItems);
+
     //2. store to local array
 function pushToArray(newItem) {
     tableValues.push(newItem);
