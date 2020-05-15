@@ -14,7 +14,7 @@ window.addEventListener('load', (e) => {
     renderOnLoad(tableValues);
 })
 function renderOnLoad(tableValues) {
-    const storedItems = {
+    storedItems = {
         id: tableId,
         item: description,
         time: date,
