@@ -5,34 +5,27 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
-const tableId = tableValues.length > 0 ? tableValues.length + 1 : 1;
+const tableId = tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1;
 
+// tableValues.length > 0 ? tableValues.length + 1 : 1;
 
+// tableValues.forEach((id) => {
+//    let ID = id.id;
+//    return ID;
+// }); 
 
-window.addEventListener('load', (e) => {
-    e.preventDefault();
-    renderOnLoad(tableValues);
-})
-function renderOnLoad(tableValues) {
-    storedItems = {
-        id: tableId,
-        item: description,
-        time: date,
-        location: place,
-        total: amount
-    };
-        tableValues.forEach((storedItems) => {
-           
-            console.log( 'stored items ', storedItems);
-            renderTableRow(storedItems);
-        });
-    };
-  
 
  
+window.addEventListener('load', (e) => {
+    e.preventDefault();
+    
+    tableValues.forEach((savedExpense) => {
+        console.log('saved expense = ', savedExpense);
+        renderTableRow(savedExpense);
+    });
+});
 
 //1. create an item object
-
 document
     .getElementById("submitButton")
     .addEventListener("click", () => {
@@ -44,7 +37,7 @@ document
             location: place.value,
             total: amount.value
         };
-        
+
         renderTableRow(newItem);
         pushToArray(newItem);
         console.log('tablevalues array ', tableValues);
@@ -54,20 +47,17 @@ document
         focusOnWhatField();
     });
 
-
-    //2. store to local array
+//2. store to local array
 function pushToArray(newItem) {
     tableValues.push(newItem);
-    
- }; 
-    //3. store array to local storage
+};
+//3. store array to local storage
 function pushToLocalStorage() {
     localStorage.setItem('tableValues', JSON.stringify(tableValues));
 };
-   // 4. render table
-function renderTableRow() {
-    
-  
+// 4. render table
+function renderTableRow(expense) {
+
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', tableId);
@@ -88,10 +78,12 @@ function renderTableRow() {
     deleteButton.setAttribute('class', 'delete-button');
     deleteButton.addEventListener('click', deleteRow);
 
-    tableCell1.textContent =  description.value;
-    tableCell2.textContent =  date.value;
-    tableCell3.textContent =  location.value;
-    tableCell4.textContent =  amount.value;   
+    tableCell1.textContent = expense.item;
+    tableCell2.textContent = expense.time;
+    tableCell3.textContent = expense.location;
+    tableCell4.textContent = expense.total;
+
+    totalExpenses(tableValues);
 };
 // 5. adjust total expense display
 function totalExpenses(tableValues) {
@@ -99,26 +91,26 @@ function totalExpenses(tableValues) {
     // console.log('This is the sum ', sum);
     // for(let i = 0; i < tableValues.length; i++)
     console.log('current sum is ', sum);
-        tableValues.forEach(({total}) => {
-            console.log('total for most recent expense is ', total);
-           sum += parseFloat(total);
-           totalDisplay.textContent  = "$" + sum;
-        });
+    tableValues.forEach(({ total }) => {
+        console.log('total for most recent expense is ', total);
+        sum += parseFloat(total);
+        totalDisplay.textContent = "$" + sum;
+    });
 };
 // 6. Delete Table Row
 function deleteRow(e) {
     e.preventDefault();
     let rowId = e.target.parentNode.id;
-    for(let i = 0; i < tableValues.length; i++) {
-        if(tableValues[i].id === Number(rowId)) {
+    for (let i = 0; i < tableValues.length; i++) {
+        if (tableValues[i].id === Number(rowId)) {
 
             tableValues.splice(i, 1);
             targetRow = document.getElementById(rowId);
             targetRow.parentNode.removeChild(targetRow);
             localStorage.setItem('tableValues', JSON.stringify(tableValues));
             totalExpenses(tableValues);
-            if(tableValues.length === 0)  totalDisplay.textContent = "$" + 0;
-        } 
+            if (tableValues.length === 0) totalDisplay.textContent = "$" + 0;
+        }
     }
 };
 
