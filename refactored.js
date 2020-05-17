@@ -5,7 +5,7 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
-const tableId = tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1;
+
 
 // tableValues.length > 0 ? tableValues.length + 1 : 1;
 
@@ -30,8 +30,9 @@ document
     .getElementById("submitButton")
     .addEventListener("click", () => {
 
+ 
         const newItem = {
-            id: tableId,
+            id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
             item: description.value,
             time: date.value,
             location: place.value,
@@ -57,7 +58,10 @@ function pushToLocalStorage() {
 };
 // 4. render table
 function renderTableRow(expense) {
-
+    const tableId = tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1 || tableValues.forEach((expense) => {
+        console.log('expense id ', expense.id);
+        return expense.id;
+    });
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', tableId);
