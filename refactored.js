@@ -20,6 +20,7 @@ window.addEventListener('load', (e) => {
     e.preventDefault();
     
     tableValues.forEach((savedExpense) => {
+
         console.log('saved expense = ', savedExpense);
         renderTableRow(savedExpense);
     });
@@ -58,10 +59,11 @@ function pushToLocalStorage() {
 };
 // 4. render table
 function renderTableRow(expense) {
-    const tableId = tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1 || tableValues.forEach((expense) => {
-        console.log('expense id ', expense.id);
-        return expense.id;
-    });
+     const tableId = expense.id;
+    // tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1 || tableValues.forEach((expense) => {
+    // //     console.log('expense id ', expense.id);
+    //     return expense.id;
+    // });
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', tableId);
