@@ -5,23 +5,11 @@ const description = document.getElementById("what");
 const place = document.getElementById("where");
 const date = document.getElementById("when");
 const amount = document.getElementById("howMuch");
-
-
-// tableValues.length > 0 ? tableValues.length + 1 : 1;
-
-// tableValues.forEach((id) => {
-//    let ID = id.id;
-//    return ID;
-// }); 
-
-
  
 window.addEventListener('load', (e) => {
     e.preventDefault();
     
     tableValues.forEach((savedExpense) => {
-
-        console.log('saved expense = ', savedExpense);
         renderTableRow(savedExpense);
     });
 });
@@ -30,7 +18,6 @@ window.addEventListener('load', (e) => {
 document
     .getElementById("submitButton")
     .addEventListener("click", () => {
-
  
         const newItem = {
             id: tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1,
@@ -39,10 +26,8 @@ document
             location: place.value,
             total: amount.value
         };
-
         renderTableRow(newItem);
         pushToArray(newItem);
-        console.log('tablevalues array ', tableValues);
         pushToLocalStorage(newItem);
         totalExpenses(tableValues);
         clearInputs();
@@ -60,10 +45,6 @@ function pushToLocalStorage() {
 // 4. render table
 function renderTableRow(expense) {
      const tableId = expense.id;
-    // tableValues.length > 0 ? tableValues[tableValues.length -1].id + 1 : 1 || tableValues.forEach((expense) => {
-    // //     console.log('expense id ', expense.id);
-    //     return expense.id;
-    // });
     // creates new row to be injected into html table
     const tableRow = document.createElement('tr');
     tableRow.setAttribute('id', tableId);
@@ -94,11 +75,9 @@ function renderTableRow(expense) {
 // 5. adjust total expense display
 function totalExpenses(tableValues) {
     let sum = 0;
-    // console.log('This is the sum ', sum);
-    // for(let i = 0; i < tableValues.length; i++)
+  
     console.log('current sum is ', sum);
     tableValues.forEach(({ total }) => {
-        console.log('total for most recent expense is ', total);
         sum += parseFloat(total);
         totalDisplay.textContent = "$" + sum;
     });
@@ -109,7 +88,6 @@ function deleteRow(e) {
     let rowId = e.target.parentNode.id;
     for (let i = 0; i < tableValues.length; i++) {
         if (tableValues[i].id === Number(rowId)) {
-
             tableValues.splice(i, 1);
             targetRow = document.getElementById(rowId);
             targetRow.parentNode.removeChild(targetRow);
