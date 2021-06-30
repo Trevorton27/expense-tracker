@@ -1,57 +1,58 @@
-
 #title-wrapper {
-    text-align: center;
-    padding: 1.5em 2em;
+  text-align: center;
+  padding: 1.5em 2em;
+}
+
+h1 {
 }
 .title {
-    font-family: Helvetica;
-    margin-bottom: 30px;
-    margin: auto 0;
+  font-family: Helvetica;
+  margin-bottom: 30px;
+  margin: auto 0;
+  margin-top: 40px;
 }
-#data-entry-fields{
-    margin-bottom: 2.7em;
+#data-entry-fields {
+  margin-bottom: 2.7em;
 }
-h4.step-three{
-    margin-top: 2.7em;
+h4.step-three {
+  margin-top: 2.7em;
 }
 .submit-button {
-    margin: 2.7em auto;
-    margin-top: .8em;
+  margin: 2.7em auto;
+  margin-top: 0.8em;
 
-    background-color: #007bff;
-    color: white;
-    font-weight: 600;
-    padding: 1em 3em;
-    font-size: 1.2em;
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  padding: 0.5em 2em;
+  font-size: 1.2em;
 }
 
 .entry-field {
-    text-align: center;
-    margin-top: 1.5em;
+  text-align: center;
+  margin-top: 1.5em;
 }
 
 .input-fields {
-    
-    padding: 1.5em 1.5em;
-   
+  padding: 1.5em 1.5em;
 }
 
 .html-table {
-    padding: 1.5em 1.5em;
+  padding: 1.5em 1.5em;
 }
 
 #total-display {
-    border: solid;
-    border-width: 1px;
-    border-radius: 5px;
-    padding: 4px 5px  ;
-    min-height: 30px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 4px 5px;
+  min-height: 30px;
 }
 
 .delete-button {
-    color: #ffffff;
-    background-color: #df392e;
-    margin: 0.2em 2em;
-    border-radius: 50%;
-    padding: 0.2em 0.7em;
+  color: #ffffff;
+  background-color: #df392e;
+  margin: 0.2em 2em;
+  border-radius: 50%;
+  padding: 0.2em 0.7em;
 }

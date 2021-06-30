@@ -15,7 +15,6 @@ window.addEventListener('load', (e) => {
 });
 
 document.getElementById('submitButton').addEventListener('click', () => {
-  const savedExpenses = JSON.parse(localStorage.getItem('tableValues')) || [];
   if (!description.value || !amount.value || !date.value || !place.value) {
     alert('Please fill out all input fields before submitting. ');
     return;
@@ -81,7 +80,6 @@ function createDeleteButton(expense) {
 function totalExpenses() {
   let sum = 0;
 
-  console.log('current sum is ', sum);
   expenseArray.forEach(({ total }) => {
     sum += parseFloat(total);
     totalDisplay.textContent = '$' + sum;
